@@ -1,5 +1,3 @@
-
-
 // Classe de evento para comunicação entre Controller e View
 public class ViewEventArgs : EventArgs
 {
