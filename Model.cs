@@ -6,12 +6,28 @@ public class Model
 
     public void AtualizarDadosVenda()
     {
-        OnOperationCompleted("Dados de venda atualizados com sucesso.");
+        try
+        {
+            // Código para atualizar os dados de venda
+            OnOperationCompleted("Dados de venda atualizados com sucesso.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Erro ao atualizar os dados de venda: " + ex.Message);
+        }
     }
 
     public void ArmazenarComentario()
     {
-        OnOperationCompleted("Comentário sobre venda armazenado com sucesso.");
+        try
+        {
+            // Código para armazenar o comentário sobre a venda
+            OnOperationCompleted("Comentário sobre venda armazenado com sucesso.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Erro ao armazenar o comentário sobre a venda: " + ex.Message);
+        }
     }
 
     protected virtual void OnOperationCompleted(string message)
@@ -19,4 +35,3 @@ public class Model
         OperationCompleted?.Invoke(this, message);
     }
 }
-
