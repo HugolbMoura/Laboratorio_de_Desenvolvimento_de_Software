@@ -1,0 +1,15 @@
+C:\Users\hugol\source\repos\Projeto PDF_report\Laboratorio_de_Desenvolvimento_de_Software\obj\Debug\net8.0\PDF_report1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hugol\source\repos\Projeto PDF_report\Laboratorio_de_Desenvolvimento_de_Software\obj\Debug\net8.0\PDF_report1.AssemblyInfoInputs.cache
+C:\Users\hugol\source\repos\Projeto PDF_report\Laboratorio_de_Desenvolvimento_de_Software\obj\Debug\net8.0\PDF_report1.AssemblyInfo.cs
+C:\Users\hugol\source\repos\Projeto PDF_report\Laboratorio_de_Desenvolvimento_de_Software\obj\Debug\net8.0\PDF_report1.csproj.CoreCompileInputs.cache
+C:\Users\hugol\source\repos\Projeto PDF_report\Laboratorio_de_Desenvolvimento_de_Software\obj\Debug\net8.0\PDF_report1.sourcelink.json
+C:\Users\hugol\source\repos\Projeto PDF_report\Laboratorio_de_Desenvolvimento_de_Software\bin\Debug\net8.0\PDF_report1.exe
+C:\Users\hugol\source\repos\Projeto PDF_report\Laboratorio_de_Desenvolvimento_de_Software\bin\Debug\net8.0\PDF_report1.deps.json
+C:\Users\hugol\source\repos\Projeto PDF_report\Laboratorio_de_Desenvolvimento_de_Software\bin\Debug\net8.0\PDF_report1.runtimeconfig.json
+C:\Users\hugol\source\repos\Projeto PDF_report\Laboratorio_de_Desenvolvimento_de_Software\bin\Debug\net8.0\PDF_report1.dll
+C:\Users\hugol\source\repos\Projeto PDF_report\Laboratorio_de_Desenvolvimento_de_Software\bin\Debug\net8.0\PDF_report1.pdb
+C:\Users\hugol\source\repos\Projeto PDF_report\Laboratorio_de_Desenvolvimento_de_Software\obj\Debug\net8.0\PDF_report1.dll
+C:\Users\hugol\source\repos\Projeto PDF_report\Laboratorio_de_Desenvolvimento_de_Software\obj\Debug\net8.0\refint\PDF_report1.dll
+C:\Users\hugol\source\repos\Projeto PDF_report\Laboratorio_de_Desenvolvimento_de_Software\obj\Debug\net8.0\PDF_report1.pdb
+C:\Users\hugol\source\repos\Projeto PDF_report\Laboratorio_de_Desenvolvimento_de_Software\obj\Debug\net8.0\PDF_report1.genruntimeconfig.cache
+C:\Users\hugol\source\repos\Projeto PDF_report\Laboratorio_de_Desenvolvimento_de_Software\obj\Debug\net8.0\ref\PDF_report1.dll
