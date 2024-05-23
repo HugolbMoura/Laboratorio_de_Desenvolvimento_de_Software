@@ -31,11 +31,19 @@ public class Controller
     }
 
     // Método para lidar com a conclusão das operações do model
-    private void ModelOperationCompleted(object sender, string message)
+    private void ModelOperationCompleted(object sender, OperationCompletedEventArgs e)
     {
         try
         {
-            _view.ShowMessage(message);
+            if (e.IsError)
+            {
+                // Tratamento especial para erros
+                _view.ShowError(e.Message);
+            }
+            else
+            {
+                _view.ShowMessage(e.Message);
+            }
         }
         catch (Exception ex)
         {
@@ -50,4 +58,3 @@ public class Controller
         GeneratePdfRequested?.Invoke(this, EventArgs.Empty);
     }
 }
-

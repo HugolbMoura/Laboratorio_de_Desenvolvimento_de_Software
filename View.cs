@@ -13,4 +13,12 @@ public class View
     {
         Console.WriteLine(message);
     }
+
+    // Método para exibir uma mensagem de erro na interface
+    public void ShowError(string errorMessage)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(errorMessage);
+        Console.ResetColor();
+    }
 }
