@@ -1,16 +1,19 @@
 using System;
 
-public class View
+public class View : IView
 {
-    // Método para ativar a interface
     public void ActivateInterface()
     {
         Console.WriteLine("Interface ativada.");
     }
 
-    // Método para exibir uma mensagem na interface
     public void ShowMessage(string message)
     {
         Console.WriteLine(message);
+    }
+
+    public void ShowError(string message)
+    {
+        Console.WriteLine("Erro: " + message);
     }
 }
