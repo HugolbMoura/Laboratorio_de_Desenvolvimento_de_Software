@@ -1,3 +1,5 @@
+using PdfSharp.Pdf;
+
 public interface IModel
 {
     event OperationCompletedEventHandler OperationCompleted;
@@ -18,6 +20,14 @@ public interface IController
     void InsertSalesComment();
     void RequestPdfGeneration();
 }
+
+
+public interface PDFGenerator
+{
+    byte[] GeneratePdf(List<Sale> salesData, List<SaleComment> salesComments);
+}
+
+
 
 public delegate void OperationCompletedEventHandler(object sender, OperationCompletedEventArgs e);
 
