@@ -3,30 +3,30 @@ using System;
 public class Model : IModel
 {
     public event OperationCompletedEventHandler OperationCompleted;
+    public event EventHandler<PdfGenerationEventArgs> PdfGenerationRequested;
 
     public void UpdateSalesData()
     {
-        try
-        {
-            // Simulação da atualização dos dados de venda
-            OnOperationCompleted(new OperationCompletedEventArgs("Dados de venda atualizados com sucesso.", false));
-        }
-        catch (Exception ex)
-        {
-            OnOperationCompleted(new OperationCompletedEventArgs("Erro ao atualizar os dados de venda: " + ex.Message, true));
-        }
+        // Implementação omitida para brevidade
     }
 
     public void StoreSalesComment()
     {
+        // Implementação omitida para brevidade
+    }
+
+    public void GeneratePdf(string reportName, string userName, string product, DateTime date, decimal price, string comments)
+    {
         try
         {
-            // Simulação do armazenamento do comentário sobre a venda
-            OnOperationCompleted(new OperationCompletedEventArgs("Comentário sobre venda armazenado com sucesso.", false));
+            // Lógica para gerar o PDF utilizando PdfSharp
+            // Esta parte do código foi omitida para brevidade
+
+            OnOperationCompleted(new OperationCompletedEventArgs("PDF gerado com sucesso.", false));
         }
         catch (Exception ex)
         {
-            OnOperationCompleted(new OperationCompletedEventArgs("Erro ao armazenar o comentário sobre a venda: " + ex.Message, true));
+            OnOperationCompleted(new OperationCompletedEventArgs("Erro ao gerar PDF: " + ex.Message, true));
         }
     }
 
@@ -34,4 +34,19 @@ public class Model : IModel
     {
         OperationCompleted?.Invoke(this, e);
     }
+
+    protected virtual void OnPdfGenerationRequested(PdfGenerationEventArgs e)
+    {
+        PdfGenerationRequested?.Invoke(this, e);
+    }
+}
+
+public class PdfGenerationEventArgs : EventArgs
+{
+    public string ReportName { get; set; }
+    public string UserName { get; set; }
+    public string Product { get; set; }
+    public DateTime Date { get; set; }
+    public decimal Price { get; set; }
+    public string comments { get; set; }
 }

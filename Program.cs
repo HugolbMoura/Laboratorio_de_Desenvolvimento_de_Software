@@ -1,19 +1,26 @@
-using System;
-
 partial class Program
 {
     static void Main(string[] args)
     {
         IModel model = new Model();
         IView view = new View();
-        PDFGenerator pdfGenerator = new PdfSharpGenerator();
-        IController controller = new Controller(model, view, pdfGenerator);
+        IController controller = new Controller(model, view);
 
         view.ActivateInterface();
 
         controller.InsertSalesData();
         controller.InsertSalesComment();
-        controller.RequestPdfGeneration();
+
+        // Solicitação dos dados ao usuário
+        string reportName = view.RequestStringInput("Insira o nome do relatório:");
+        string userName = view.RequestStringInput("Insira o nome do vendedor:");
+        string product = view.RequestStringInput("Insira o produto:");
+        DateTime date = view.RequestDateInput("Insira a data:");
+        decimal price = view.RequestDecimalInput("Insira o preço:");
+        string comments = view.RequestStringInput("Insira comentário:");
+
+        // Solicitação de geração do PDF com os dados fornecidos pelo usuário
+        controller.RequestPdfGeneration(reportName, userName, product, date, price, comments);
 
         try
         {

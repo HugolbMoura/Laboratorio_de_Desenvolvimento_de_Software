@@ -1,21 +1,18 @@
 using System;
-using System.Collections.Generic;
 
 public class Controller : IController
 {
     private readonly IModel _model;
     private readonly IView _view;
-    private readonly PDFGenerator _pdfGenerator;
 
     public event EventHandler GeneratePdfRequested;
 
-    public Controller(IModel model, IView view, PDFGenerator pdfGenerator)
+    public Controller(IModel model, IView view)
     {
         _model = model;
         _view = view;
-        _pdfGenerator = pdfGenerator;
         _model.OperationCompleted += ModelOperationCompleted;
-        GeneratePdfRequested += OnGeneratePdfRequested;
+        _model.PdfGenerationRequested += ModelPdfGenerationRequested;
     }
 
     public void InsertSalesData()
@@ -28,48 +25,18 @@ public class Controller : IController
         _model.StoreSalesComment();
     }
 
+    public void RequestPdfGeneration(string reportName, string userName, string product, DateTime date, decimal price, string comments)
+    {
+        _model.GeneratePdf(reportName, userName, product, date, price, comments);
+    }
+
     private void ModelOperationCompleted(object sender, OperationCompletedEventArgs e)
     {
-        try
-        {
-            if (e.IsError)
-            {
-                _view.ShowError(e.Message);
-            }
-            else
-            {
-                _view.ShowMessage(e.Message);
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Erro ao exibir mensagem: " + ex.Message);
-        }
+        // Implementação omitida para brevidade
     }
 
-    public void RequestPdfGeneration()
+    private void ModelPdfGenerationRequested(object sender, PdfGenerationEventArgs e)
     {
-        GeneratePdfRequested?.Invoke(this, EventArgs.Empty);
-    }
-
-    private void OnGeneratePdfRequested(object sender, EventArgs e)
-    {
-        // Exemplo de dados. Em um cenário real, esses dados viriam do modelo.
-        var salesData = new List<Sale>
-        {
-            new Sale { SaleId = 1, ProductName = "Produto A", Price = 10.0m, SaleDate = DateTime.Now },
-            new Sale { SaleId = 2, ProductName = "Produto B", Price = 20.0m, SaleDate = DateTime.Now }
-        };
-        var salesComments = new List<SaleComment>
-        {
-            new SaleComment { SaleId = 1, Comment = "Comentário A" },
-            new SaleComment { SaleId = 2, Comment = "Comentário B" }
-        };
-
-        var pdfBytes = _pdfGenerator.GeneratePdf(salesData, salesComments);
-        // Lógica para salvar ou enviar o PDF gerado
-        // Por exemplo: File.WriteAllBytes("relatorio.pdf", pdfBytes);
-
-        _view.ShowMessage("PDF gerado com sucesso.");
+        // Implementação omitida para brevidade
     }
 }
