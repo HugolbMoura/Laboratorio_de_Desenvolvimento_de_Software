@@ -32,3 +32,8 @@ public class OperationCompletedEventArgs : EventArgs
         IsError = isError;
     }
 }
+
+public interface PDFGenerator
+{
+    byte[] GeneratePdf(List<Sale> salesData, List<SaleComment> salesComments);
+}

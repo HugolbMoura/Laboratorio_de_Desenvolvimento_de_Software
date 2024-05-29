@@ -6,7 +6,8 @@ partial class Program
     {
         IModel model = new Model();
         IView view = new View();
-        IController controller = new Controller(model, view);
+        PDFGenerator pdfGenerator = new PdfSharpGenerator();
+        IController controller = new Controller(model, view, pdfGenerator);
 
         view.ActivateInterface();
 
