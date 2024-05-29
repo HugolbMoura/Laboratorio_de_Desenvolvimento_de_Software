@@ -1,3 +1,4 @@
+// Controller.cs
 using System;
 
 public class Controller : IController
@@ -32,11 +33,18 @@ public class Controller : IController
 
     private void ModelOperationCompleted(object sender, OperationCompletedEventArgs e)
     {
-        // Implementação omitida para brevidade
+        if (e.IsError)
+        {
+            _view.ShowError(e.Message);
+        }
+        else
+        {
+            _view.ShowMessage(e.Message);
+        }
     }
 
     private void ModelPdfGenerationRequested(object sender, PdfGenerationEventArgs e)
     {
-        // Implementação omitida para brevidade
+        RequestPdfGeneration(e.ReportName, e.UserName, e.Product, e.Date, e.Price, e.Comments);
     }
 }

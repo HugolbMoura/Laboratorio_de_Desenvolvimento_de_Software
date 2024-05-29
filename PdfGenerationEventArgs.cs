@@ -1,3 +1,4 @@
+// PdfGenerationEventArgs.cs
 using System;
 
 public class PdfGenerationEventArgs : EventArgs

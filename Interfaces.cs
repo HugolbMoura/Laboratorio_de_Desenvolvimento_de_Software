@@ -1,3 +1,4 @@
+// Interfaces.cs
 public interface IModel
 {
     event OperationCompletedEventHandler OperationCompleted;
@@ -16,7 +17,6 @@ public interface IView
     string RequestStringInput(string prompt);
     DateTime RequestDateInput(string prompt);
     decimal RequestDecimalInput(string prompt);
-     
 }
 
 public interface IController
@@ -25,7 +25,6 @@ public interface IController
     void InsertSalesComment();
     void RequestPdfGeneration(string reportName, string userName, string product, DateTime date, decimal price, string comments);
 }
-
 
 public delegate void OperationCompletedEventHandler(object sender, OperationCompletedEventArgs e);
 
