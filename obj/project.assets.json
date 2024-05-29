@@ -1,9 +1,6 @@
 {
   "version": 3,
   "targets": {
-<<<<<<< Updated upstream
-    "net8.0": {}
-=======
     "net8.0": {
       "Microsoft.Extensions.DependencyInjection/6.0.0": {
         "type": "package",
@@ -475,37 +472,30 @@
         "useSharedDesignerContext.txt"
       ]
     }
->>>>>>> Stashed changes
   },
-  "libraries": {},
   "projectFileDependencyGroups": {
-<<<<<<< Updated upstream
-    "net8.0": []
-=======
     "net8.0": [
       "PDFsharp >= 6.1.0"
     ]
->>>>>>> Stashed changes
   },
   "packageFolders": {
-    "C:\\Users\\hugol\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\WRT\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hugol\\source\\repos\\Projeto PDF_report\\Laboratorio_de_Desenvolvimento_de_Software\\PDF_report1.csproj",
-      "projectName": "PDF_report1",
-      "projectPath": "C:\\Users\\hugol\\source\\repos\\Projeto PDF_report\\Laboratorio_de_Desenvolvimento_de_Software\\PDF_report1.csproj",
-      "packagesPath": "C:\\Users\\hugol\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hugol\\source\\repos\\Projeto PDF_report\\Laboratorio_de_Desenvolvimento_de_Software\\obj\\",
+      "projectUniqueName": "C:\\Users\\WRT\\Documents\\GitHub\\Laboratorio_de_Desenvolvimento_de_Software\\Program.csproj",
+      "projectName": "Program",
+      "projectPath": "C:\\Users\\WRT\\Documents\\GitHub\\Laboratorio_de_Desenvolvimento_de_Software\\Program.csproj",
+      "packagesPath": "C:\\Users\\WRT\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\WRT\\Documents\\GitHub\\Laboratorio_de_Desenvolvimento_de_Software\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\hugol\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\WRT\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -535,15 +525,12 @@
     "frameworks": {
       "net8.0": {
         "targetAlias": "net8.0",
-<<<<<<< Updated upstream
-=======
         "dependencies": {
           "PDFsharp": {
             "target": "Package",
             "version": "[6.1.0, )"
           }
         },
->>>>>>> Stashed changes
         "imports": [
           "net461",
           "net462",
@@ -560,8 +547,16 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\WRT\\Documents\\GitHub\\Laboratorio_de_Desenvolvimento_de_Software\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
