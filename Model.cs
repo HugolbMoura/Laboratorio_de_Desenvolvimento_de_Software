@@ -39,6 +39,11 @@ public class Model : IModel
                 // Adicionar logo
                 graphics.DrawImage(PdfSharp.Drawing.XImage.FromFile("logo.png"), 7, 1, 77, 77);
 
+                 // Adicionar texto logo
+                var logoFont = new XFont("Arial", 10);
+                textFormatter.Alignment = XParagraphAlignment.Left;
+                textFormatter.DrawString("CodeConquers", logoFont, PdfSharp.Drawing.XBrushes.MediumSlateBlue, new PdfSharp.Drawing.XRect(12,2,page.Width,page.Height));
+
                 // Adicionar cabeçalho
                 var headFont = new XFont("Arial", 14);
                 textFormatter.Alignment = XParagraphAlignment.Center;
@@ -70,9 +75,19 @@ public class Model : IModel
                 textFormatter.DrawString($"Preço: {price:C}", dataFont, XBrushes.Black, new XRect(20, yPosition, page.Width - 40, page.Height));
                 yPosition += 30;
                 textFormatter.DrawString($"Comentário: {comments}", dataFont, XBrushes.Black, new XRect(20, yPosition, page.Width - 40, page.Height));
-
+                 yPosition += 80;
+                
+                // Adicionar retângulo para footer
+                var rectFooter = new XRect(0, 250, page.Width, 30);
+                graphics.DrawRectangle(XBrushes.LightBlue, rectFooter);
+                 yPosition += 4;
+                var fontFooter = new XFont("Arial", 12);
+                textFormatter.Alignment = XParagraphAlignment.Center;
+                textFormatter.DrawString("CodeConquers Sales Report", fontFooter, XBrushes.Green, rectFooter);
+                
                 // Salvar PDF
-                string fileName = "reports/report.pdf";
+                string fileName = "reports/" + reportName + ".pdf";
+
                 doc.Save(fileName);
 
                 // Abrir PDF
