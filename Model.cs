@@ -20,6 +20,13 @@ public class Model : IModel
         OnOperationCompleted(new OperationCompletedEventArgs("Dados de vendas atualizados com sucesso.", false));
     }
 
+     public void SearchSalesData()
+    {
+        // Simulação de consulta de relatórios
+        //OnOperationCompleted(new OperationCompletedEventArgs("Dados de vendas atualizados com sucesso.", false));
+    }
+
+
     public void StoreSalesComment()
     {
         // Simulação de armazenamento de comentários de vendas

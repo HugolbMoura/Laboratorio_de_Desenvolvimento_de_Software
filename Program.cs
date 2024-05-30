@@ -14,8 +14,9 @@ partial class Program
             Console.WriteLine("\nMenu:");
             Console.WriteLine("1. Criar Relatório");
             Console.WriteLine("2. Editar Relatório");
-            Console.WriteLine("3. Eliminar Relatório");
-            Console.WriteLine("4. Sair");
+            Console.WriteLine("3. Consultar Relatórios");
+            Console.WriteLine("4. Eliminar Relatório");
+            Console.WriteLine("0. Sair");
 
             string choice = view.RequestStringInput("Escolha uma opção:");
 
@@ -28,9 +29,12 @@ partial class Program
                     controller.InsertSalesData(); // Chama a função para editar os dados de vendas
                     break;
                 case "3":
-                    DeleteReport(); // Adicione a lógica de exclusão conforme necessário
+                    controller.SearchSalesData(); // Chama a função para consultar relatório de vendas
                     break;
                 case "4":
+                    DeleteReport(); // Adicione a lógica de exclusão conforme necessário
+                    break;
+                case "0":
                     return;
                 default:
                     view.ShowError("Opção inválida. Tente novamente.");

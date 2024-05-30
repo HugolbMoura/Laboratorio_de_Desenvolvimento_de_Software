@@ -21,6 +21,13 @@ public class Controller : IController
         _model.UpdateSalesData();
     }
 
+      public void SearchSalesData()
+    {
+        _model.SearchSalesData();
+    }
+
+    
+
     public void InsertSalesComment()
     {
         _model.StoreSalesComment();
