@@ -9,10 +9,38 @@ partial class Program
 
         view.ActivateInterface();
 
-        controller.InsertSalesData();
-        controller.InsertSalesComment();
+        while (true)
+        {
+            Console.WriteLine("\nMenu:");
+            Console.WriteLine("1. Criar Relatório");
+            Console.WriteLine("2. Editar Relatório");
+            Console.WriteLine("3. Eliminar Relatório");
+            Console.WriteLine("4. Sair");
 
-        // Solicitação dos dados ao usuário
+            string choice = view.RequestStringInput("Escolha uma opção:");
+
+            switch (choice)
+            {
+                case "1":
+                    CreateReport(controller, view);
+                    break;
+                case "2":
+                    controller.InsertSalesData(); // Chama a função para editar os dados de vendas
+                    break;
+                case "3":
+                    DeleteReport(); // Adicione a lógica de exclusão conforme necessário
+                    break;
+                case "4":
+                    return;
+                default:
+                    view.ShowError("Opção inválida. Tente novamente.");
+                    break;
+            }
+        }
+    }
+
+    static void CreateReport(IController controller, IView view)
+    {
         string reportName = view.RequestStringInput("Insira o nome do relatório:");
         string userName = view.RequestStringInput("Insira o nome do vendedor:");
         string product = view.RequestStringInput("Insira o produto:");
@@ -20,19 +48,12 @@ partial class Program
         decimal price = view.RequestDecimalInput("Insira o preço:");
         string comments = view.RequestStringInput("Insira comentário:");
 
-        // Solicitação de geração do PDF com os dados fornecidos pelo usuário
         controller.RequestPdfGeneration(reportName, userName, product, date, price, comments);
+    }
 
-        try
-        {
-            Console.WriteLine("Pressione qualquer tecla para fechar o programa...");
-            Console.ReadKey();
-        }
-        catch (InvalidOperationException ex)
-        {
-            Console.WriteLine("Não foi possível ler a entrada do teclado: " + ex.Message);
-            Console.WriteLine("Pressione Enter para fechar o programa...");
-            Console.ReadLine();
-        }
+    static void DeleteReport()
+    {
+        // Adicione a lógica para eliminar o relatório aqui
+        Console.WriteLine("Função de exclusão de relatório não implementada.");
     }
 }

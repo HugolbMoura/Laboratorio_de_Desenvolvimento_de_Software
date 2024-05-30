@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ARf0HsVdw38=",
+  "dgSpecHash": "sjJJg6+yE/U=",
   "success": true,
   "projectFilePath": "C:\\Users\\WRT\\Documents\\GitHub\\Laboratorio_de_Desenvolvimento_de_Software\\Program.csproj",
   "expectedPackageFiles": [
@@ -14,12 +14,5 @@
     "C:\\Users\\WRT\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.0\\system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",
     "C:\\Users\\WRT\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\WRT\\Documents\\GitHub\\Laboratorio_de_Desenvolvimento_de_Software\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

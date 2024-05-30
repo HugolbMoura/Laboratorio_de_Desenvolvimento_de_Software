@@ -17,20 +17,20 @@ public class Model : IModel
     public void UpdateSalesData()
     {
         // Simulação de atualização de dados de vendas
-       // OnOperationCompleted(new OperationCompletedEventArgs("Dados de vendas atualizados com sucesso.", false));
+        OnOperationCompleted(new OperationCompletedEventArgs("Dados de vendas atualizados com sucesso.", false));
     }
 
     public void StoreSalesComment()
     {
         // Simulação de armazenamento de comentários de vendas
-      //  OnOperationCompleted(new OperationCompletedEventArgs("Comentário de vendas armazenado com sucesso.", false));
+        OnOperationCompleted(new OperationCompletedEventArgs("Comentário de vendas armazenado com sucesso.", false));
     }
 
     public void GeneratePdf(string reportName, string userName, string product, DateTime date, decimal price, string comments)
     {
         try
         {
-            using (var doc = new PdfSharp.Pdf.PdfDocument())
+              using (var doc = new PdfSharp.Pdf.PdfDocument())
             {
                 var page = doc.AddPage();
                 var graphics = PdfSharp.Drawing.XGraphics.FromPdfPage(page);
@@ -93,6 +93,7 @@ public class Model : IModel
                 // Abrir PDF
                 Process.Start(new ProcessStartInfo(fileName) { UseShellExecute = true });
             }
+
 
             OnOperationCompleted(new OperationCompletedEventArgs("PDF gerado com sucesso.", false));
         }
