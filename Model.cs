@@ -78,12 +78,7 @@ public class Model : IModel
     {
         try
         {
-             string filePath = "reports/" + reportName + ".pdf";
-             if (File.Exists(filePath))
-             {
-               OnOperationCompleted(new OperationCompletedEventArgs("Já existe um relatório com este nome.", true));
-               return; // Retorna imediatamente se o relatório já existir
-             }     
+            
                 using (var doc = new PdfSharp.Pdf.PdfDocument())
                 {
                     var page = doc.AddPage();

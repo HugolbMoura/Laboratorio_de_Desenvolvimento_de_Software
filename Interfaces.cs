@@ -3,10 +3,13 @@ public interface IModel
 {
     event OperationCompletedEventHandler OperationCompleted;
     event EventHandler<PdfGenerationEventArgs> PdfGenerationRequested;
-    void SearchSalesData(); 
-     void EditReport(string reportName, string userName, string product, DateTime date, decimal price, string comments);
-    void DeleteReport(string reportName);
+
+ 
+    void SearchSalesData();
+    void StoreSalesComment();
     void GeneratePdf(string reportName, string userName, string product, DateTime date, decimal price, string comments);
+    void EditReport(string reportName, string userName, string product, DateTime date, decimal price, string comments);
+    void DeleteReport(string reportName);
 }
 
 public interface IView
@@ -24,8 +27,10 @@ public interface IController
     void InsertSalesData();
     void SearchSalesData();
     void InsertSalesComment();
-    void DeleteReport();
     void RequestPdfGeneration(string reportName, string userName, string product, DateTime date, decimal price, string comments);
+    bool ReportExists(string reportName); // Verifica se o relatório existe
+    void EditReport(string reportName, string userName, string product, DateTime date, decimal price, string comments); // Edita o relatório
+    void DeleteReport(string reportName); // Exclui o relatório
 }
 
 public delegate void OperationCompletedEventHandler(object sender, OperationCompletedEventArgs e);
