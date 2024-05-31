@@ -80,12 +80,6 @@ public class Model : IModel
         }
     }
 
-    // Método para armazenar comentários de vendas (não implementado)
-    public void StoreSalesComment()
-    {
-        // Simulação de armazenamento de comentários de vendas
-        OnOperationCompleted(new OperationCompletedEventArgs("Comentário de vendas armazenado com sucesso.", false));
-    }
 
     // Método para gerar um PDF com os dados fornecidos
     public void GeneratePdf(string reportName, string userName, string product, DateTime date, decimal price, string comments)

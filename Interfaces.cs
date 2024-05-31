@@ -10,9 +10,6 @@ public interface IModel
     // Método para procurar dados de vendas.
     void SearchSalesData();
 
-    // Método para armazenar um comentário sobre uma venda.
-    void StoreSalesComment();
-
     // Método para gerar um PDF com os detalhes fornecidos.
     void GeneratePdf(string reportName, string userName, string product, DateTime date, decimal price, string comments);
 
