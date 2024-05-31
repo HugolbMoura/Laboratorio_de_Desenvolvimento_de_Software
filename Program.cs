@@ -3,18 +3,22 @@ partial class Program
 {
     static void Main(string[] args)
     {
-        // Inicialização do modelo, visualização e controlador
+        // Cria uma instância do modelo, que lida com os dados
         IModel model = new Model();
+        
+        // Cria uma instância da visualização, que lida com a interface do usuário
         IView view = new View();
+        
+        // Cria uma instância do controlador, que gerencia a lógica entre o modelo e a visualização
         IController controller = new Controller(model, view);
 
-        // Ativação da interface de usuário
+        // Ativa a interface do usuário (exibe uma mensagem inicial)
         view.ActivateInterface();
 
-        // Loop principal do programa
+        // Inicia um loop infinito para manter o programa em execução
         while (true)
         {
-            // Apresentação do menu
+            // Exibe o menu de opções para o usuário
             Console.WriteLine("\nMenu:");
             Console.WriteLine("1. Criar Relatório");
             Console.WriteLine("2. Editar Relatório");
@@ -22,27 +26,33 @@ partial class Program
             Console.WriteLine("4. Eliminar Relatório");
             Console.WriteLine("0. Sair");
 
-            // Solicitação de entrada do usuário para escolha da opção
+            // Solicita que o usuário escolha uma opção digitando um número
             string choice = view.RequestStringInput("Escolha uma opção:");
 
-            // Execução da ação com base na escolha do usuário
+            // Executa uma ação com base na escolha do usuário
             switch (choice)
             {
                 case "1":
-                    CreateReport(controller, view); // Criação de um relatório
+                    // Chama a função para criar um novo relatório
+                    CreateReport(controller, view);
                     break;
                 case "2":
-                    EditReport(controller, view); // Edição de um relatório
+                    // Chama a função para editar um relatório existente
+                    EditReport(controller, view);
                     break;
                 case "3":
-                    controller.SearchSalesData(); // Consulta de relatórios
+                    // Chama a função do controlador para consultar relatórios
+                    controller.SearchSalesData();
                     break;
                 case "4":
-                    DeleteReport(controller, view); // Exclusão de um relatório
+                    // Chama a função para excluir um relatório
+                    DeleteReport(controller, view);
                     break;
                 case "0":
-                    return; // Encerra o programa
+                    // Encerra o programa
+                    return;
                 default:
+                    // Exibe uma mensagem de erro se a opção for inválida
                     view.ShowError("Opção inválida. Tente novamente.");
                     break;
             }
@@ -52,56 +62,63 @@ partial class Program
     // Função para criar um relatório
     static void CreateReport(IController controller, IView view)
     {
-        // Solicitação de nome de relatório e verificação de existência
+        // Loop para solicitar um nome de relatório que não exista
         string reportName;
         while (true)
         {
+            // Solicita o nome do relatório
             reportName = view.RequestStringInput("Insira o nome do relatório:");
+            // Verifica se o relatório já existe
             if (!controller.ReportExists(reportName))
             {
+                // Sai do loop se o relatório não existir
                 break;
             }
+            // Exibe uma mensagem de erro se o relatório já existir
             view.ShowError("Já existe um relatório com este nome. Tente outro nome.");
         }
 
-        // Solicitação dos demais dados do relatório
+        // Solicita os demais dados necessários para o relatório
         string userName = view.RequestStringInput("Insira o nome do vendedor:");
         string product = view.RequestStringInput("Insira o produto:");
         DateTime date = view.RequestDateInput("Insira a data:");
         decimal price = view.RequestDecimalInput("Insira o preço:");
         string comments = view.RequestStringInput("Insira comentário:");
 
-        // Solicita ao controlador que gere um PDF com os dados fornecidos
+        // Pede ao controlador para gerar um PDF com os dados fornecidos
         controller.RequestPdfGeneration(reportName, userName, product, date, price, comments);
     }
 
-    // Função para editar um relatório
+    // Função para editar um relatório existente
     static void EditReport(IController controller, IView view)
     {
-        // Solicitação de nome de relatório e verificação de existência
+        // Solicita o nome do relatório a ser editado
         string reportName = view.RequestStringInput("Insira o nome do relatório a editar:");
+        // Verifica se o relatório existe
         if (!controller.ReportExists(reportName))
         {
+            // Exibe uma mensagem de erro se o relatório não for encontrado
             view.ShowError("Relatório não encontrado. Tente outro nome.");
             return;
         }
 
-        // Solicitação dos novos dados do relatório
+        // Solicita os novos dados para o relatório
         string userName = view.RequestStringInput("Insira o novo nome do vendedor:");
         string product = view.RequestStringInput("Insira o novo produto:");
         DateTime date = view.RequestDateInput("Insira a nova data:");
         decimal price = view.RequestDecimalInput("Insira o novo preço:");
         string comments = view.RequestStringInput("Insira o novo comentário:");
 
-        // Solicita ao controlador que edite o relatório
+        // Pede ao controlador para editar o relatório com os novos dados
         controller.EditReport(reportName, userName, product, date, price, comments);
     }
 
     // Função para excluir um relatório
     static void DeleteReport(IController controller, IView view)
     {
-        // Solicitação do nome do relatório a ser excluído
+        // Solicita o nome do relatório a ser excluído
         string reportName = view.RequestStringInput("Insira o nome do relatório a eliminar:");
+        // Pede ao controlador para excluir o relatório com o nome fornecido
         controller.DeleteReport(reportName);
     }
 }
