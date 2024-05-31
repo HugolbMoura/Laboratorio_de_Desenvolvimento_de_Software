@@ -16,21 +16,40 @@ public class Controller : IController
         _model.PdfGenerationRequested += ModelPdfGenerationRequested;
     }
 
-    public void InsertSalesData()
+     public void InsertSalesData()
     {
-        _model.UpdateSalesData();
+        // Para edição de relatório, coletamos informações como no CreateReport
+        string reportName = _view.RequestStringInput("Insira o nome do relatório a editar:");
+        string userName = _view.RequestStringInput("Insira o novo nome do vendedor:");
+        string product = _view.RequestStringInput("Insira o novo produto:");
+        DateTime date = _view.RequestDateInput("Insira a nova data:");
+        decimal price = _view.RequestDecimalInput("Insira o novo preço:");
+        string comments = _view.RequestStringInput("Insira o novo comentário:");
+
+        _model.EditReport(reportName, userName, product, date, price, comments);
     }
 
-      public void SearchSalesData()
+    public void SearchSalesData()
     {
         _model.SearchSalesData();
     }
+
+    public void DeleteReport()
+    {
+        string reportName = _view.RequestStringInput("Insira o nome do relatório a eliminar:");
+        _model.DeleteReport(reportName);
+    }
+
+    //   public void SearchSalesData()
+    // {
+    //     _model.SearchSalesData();
+    // }
 
     
 
     public void InsertSalesComment()
     {
-        _model.StoreSalesComment();
+        //_model.StoreSalesComment();
     }
 
     public void RequestPdfGeneration(string reportName, string userName, string product, DateTime date, decimal price, string comments)

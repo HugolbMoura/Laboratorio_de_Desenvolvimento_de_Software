@@ -51,6 +51,10 @@
             "PDFsharp": {
               "target": "Package",
               "version": "[6.1.0, )"
+            },
+            "System.Data.SQLite": {
+              "target": "Package",
+              "version": "[1.0.118, )"
             }
           },
           "imports": [

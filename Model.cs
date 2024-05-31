@@ -2,6 +2,7 @@
 using PdfSharp.Pdf;
 using PdfSharp.Drawing;
 using PdfSharp.Drawing.Layout;
+using PdfSharp.Pdf.IO;
 using System;
 using System.Diagnostics;
 using System.Collections.Generic;
@@ -19,11 +20,58 @@ public class Model : IModel
         // Simulação de atualização de dados de vendas
         OnOperationCompleted(new OperationCompletedEventArgs("Dados de vendas atualizados com sucesso.", false));
     }
+    //   public void StoreSalesComment()
+    // {
+    //     // Simulação de atualização de dados de vendas
+       
+    // }
+    
 
-     public void SearchSalesData()
+      public void SearchSalesData()
     {
-        // Simulação de consulta de relatórios
-        //OnOperationCompleted(new OperationCompletedEventArgs("Dados de vendas atualizados com sucesso.", false));
+        // Lista todos os relatórios na pasta "reports"
+        var reports = Directory.GetFiles("reports", "*.pdf");
+        if (reports.Length == 0)
+        {
+            OnOperationCompleted(new OperationCompletedEventArgs("Nenhum relatório encontrado.", false));
+        }
+        else
+        {
+            var message = "Relatórios encontrados:\n";
+            foreach (var report in reports)
+            {
+                message += Path.GetFileName(report) + "\n";
+            }
+            OnOperationCompleted(new OperationCompletedEventArgs(message, false));
+        }
+    }
+
+    public void EditReport(string reportName, string userName, string product, DateTime date, decimal price, string comments)
+    {
+        string filePath = "reports/" + reportName + ".pdf";
+        if (File.Exists(filePath))
+        {
+            GeneratePdf(reportName, userName, product, date, price, comments);
+            OnOperationCompleted(new OperationCompletedEventArgs("Relatório editado com sucesso.", false));
+        }
+        else
+        {
+            OnOperationCompleted(new OperationCompletedEventArgs("Relatório não encontrado.", true));
+        }
+    }
+
+    public void DeleteReport(string reportName)
+    {
+        string filePath = "reports/" + reportName + ".pdf";
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+            OnOperationCompleted(new OperationCompletedEventArgs("Relatório eliminado com sucesso.", false));
+        }
+        else
+        {
+            OnOperationCompleted(new OperationCompletedEventArgs("Relatório não encontrado.", true));
+        }
     }
 
 

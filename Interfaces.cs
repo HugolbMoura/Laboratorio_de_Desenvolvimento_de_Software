@@ -5,8 +5,9 @@ public interface IModel
     event EventHandler<PdfGenerationEventArgs> PdfGenerationRequested;
 
     void UpdateSalesData();
-    void SearchSalesData();
-    void StoreSalesComment();
+    void SearchSalesData(); 
+     void EditReport(string reportName, string userName, string product, DateTime date, decimal price, string comments);
+    void DeleteReport(string reportName);
     void GeneratePdf(string reportName, string userName, string product, DateTime date, decimal price, string comments);
 }
 
@@ -25,6 +26,7 @@ public interface IController
     void InsertSalesData();
     void SearchSalesData();
     void InsertSalesComment();
+    void DeleteReport();
     void RequestPdfGeneration(string reportName, string userName, string product, DateTime date, decimal price, string comments);
 }
 

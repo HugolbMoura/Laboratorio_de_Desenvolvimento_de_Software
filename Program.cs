@@ -1,4 +1,3 @@
-// Program.cs
 partial class Program
 {
     static void Main(string[] args)
@@ -26,13 +25,13 @@ partial class Program
                     CreateReport(controller, view);
                     break;
                 case "2":
-                    controller.InsertSalesData(); // Chama a função para editar os dados de vendas
+                    controller.InsertSalesData();
                     break;
                 case "3":
-                    controller.SearchSalesData(); // Chama a função para consultar relatório de vendas
+                    controller.SearchSalesData();
                     break;
                 case "4":
-                    DeleteReport(); // Adicione a lógica de exclusão conforme necessário
+                    controller.DeleteReport();
                     break;
                 case "0":
                     return;
@@ -53,11 +52,5 @@ partial class Program
         string comments = view.RequestStringInput("Insira comentário:");
 
         controller.RequestPdfGeneration(reportName, userName, product, date, price, comments);
-    }
-
-    static void DeleteReport()
-    {
-        // Adicione a lógica para eliminar o relatório aqui
-        Console.WriteLine("Função de exclusão de relatório não implementada.");
     }
 }
