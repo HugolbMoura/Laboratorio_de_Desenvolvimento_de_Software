@@ -40,13 +40,6 @@ public class Controller : IController
         _model.DeleteReport(reportName);
     }
 
-    //   public void SearchSalesData()
-    // {
-    //     _model.SearchSalesData();
-    // }
-
-    
-
     public void InsertSalesComment()
     {
         //_model.StoreSalesComment();

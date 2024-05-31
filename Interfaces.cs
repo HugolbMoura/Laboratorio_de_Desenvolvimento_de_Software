@@ -3,8 +3,6 @@ public interface IModel
 {
     event OperationCompletedEventHandler OperationCompleted;
     event EventHandler<PdfGenerationEventArgs> PdfGenerationRequested;
-
-    void UpdateSalesData();
     void SearchSalesData(); 
      void EditReport(string reportName, string userName, string product, DateTime date, decimal price, string comments);
     void DeleteReport(string reportName);
