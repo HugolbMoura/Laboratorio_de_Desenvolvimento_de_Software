@@ -14,6 +14,11 @@ public class Model : IModel
 {
     public event OperationCompletedEventHandler OperationCompleted;
     public event EventHandler<PdfGenerationEventArgs>? PdfGenerationRequested;
+
+     public Model()
+    {
+        OperationCompleted += delegate { };
+    }
     
       public void SearchSalesData()
     {
@@ -91,8 +96,7 @@ public class Model : IModel
                     // Adicionar texto logo
                     var logoFont = new XFont("Arial", 10);
                     textFormatter.Alignment = XParagraphAlignment.Left;
-                    textFormatter.DrawString("CodeConquers", logoFont, PdfSharp.Drawing.XBrushes.MediumSlateBlue, new PdfSharp.Drawing.XRect(12, 2, page.Width, page.Height));
-
+                    textFormatter.DrawString($"CodeConquers", logoFont, XBrushes.MediumSlateBlue, new XRect(12, 2, page.Width, page.Height));
                     // Adicionar cabeçalho
                     var headFont = new XFont("Arial", 14);
                     textFormatter.Alignment = XParagraphAlignment.Center;

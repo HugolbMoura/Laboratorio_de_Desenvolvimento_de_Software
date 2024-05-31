@@ -6,14 +6,13 @@ public class Controller : IController
     private readonly IModel _model;
     private readonly IView _view;
 
-    public event EventHandler GeneratePdfRequested;
+   public event EventHandler? GeneratePdfRequested  = delegate { };
 
     public Controller(IModel model, IView view)
     {
         _model = model;
         _view = view;
         _model.OperationCompleted += ModelOperationCompleted;
-        _model.PdfGenerationRequested += ModelPdfGenerationRequested;
     }
 
      public void InsertSalesData()
@@ -62,8 +61,4 @@ public class Controller : IController
         }
     }
 
-    private void ModelPdfGenerationRequested(object sender, PdfGenerationEventArgs e)
-    {
-        RequestPdfGeneration(e.ReportName, e.UserName, e.Product, e.Date, e.Price, e.Comments);
-    }
 }
