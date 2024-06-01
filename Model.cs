@@ -81,6 +81,7 @@ public class Model : IModel
     }
 
 
+
     // Método para gerar um PDF com os dados fornecidos
     public void GeneratePdf(string reportName, string userName, string product, DateTime date, decimal price, string comments)
     {
