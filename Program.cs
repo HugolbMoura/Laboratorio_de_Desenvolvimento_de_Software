@@ -42,7 +42,7 @@ partial class Program
                     break;
                 case "3":
                     // Chama a função do controlador para consultar relatórios
-                    controller.SearchSalesData();
+                   controller.ViewReports();
                     break;
                 case "4":
                     // Chama a função para excluir um relatório

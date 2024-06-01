@@ -3,6 +3,7 @@ using PdfSharp.Pdf; // Importa a biblioteca PdfSharp para trabalhar com PDFs
 using PdfSharp.Drawing;
 using PdfSharp.Drawing.Layout;
 using PdfSharp.Pdf.IO;
+using PdfiumViewer;
 using System;
 using System.Diagnostics;
 using System.Collections.Generic;
@@ -25,26 +26,43 @@ public class Model : IModel
     }
 
     // Método para buscar dados de vendas
-    public void SearchSalesData()
+   public void SearchSalesData()
+{
+    // Lista todos os arquivos PDF na pasta "reports"
+    var reports = Directory.GetFiles("reports", "*.pdf");
+    if (reports.Length == 0)
     {
-        // Lista todos os arquivos PDF na pasta "reports"
-        var reports = Directory.GetFiles("reports", "*.pdf");
-        if (reports.Length == 0)
-        {
-            // Se nenhum relatório for encontrado, dispara um evento de operação concluída com uma mensagem de erro
-            OnOperationCompleted(new OperationCompletedEventArgs("Nenhum relatório encontrado.", false));
-        }
-        else
-        {
-            // Se relatórios forem encontrados, monta uma mensagem com seus nomes e dispara um evento de operação concluída
-            var message = "Relatórios encontrados:\n";
-            foreach (var report in reports)
-            {
-                message += Path.GetFileName(report) + "\n";
-            }
-            OnOperationCompleted(new OperationCompletedEventArgs(message, false));
-        }
+        // Se nenhum relatório for encontrado, dispara um evento de operação concluída com uma mensagem de erro
+        OnOperationCompleted(new OperationCompletedEventArgs("Nenhum relatório encontrado.", false));
     }
+    else
+    {
+        // Se relatórios forem encontrados, monta uma mensagem com seus nomes e dispara um evento de operação concluída
+        var message = "Relatórios encontrados:\n";
+        foreach (var report in reports)
+        {
+            message += Path.GetFileName(report) + "\n";
+        }
+        OnOperationCompleted(new OperationCompletedEventArgs(message, false));
+    }
+}
+
+public void ViewReport(string reportName)
+{
+    // Verifica se o relatório existe
+    string filePath = "reports/" + reportName + ".pdf";
+    if (File.Exists(filePath))
+    {
+        // Lê e exibe o conteúdo do relatório
+        string reportContent = File.ReadAllText(filePath);
+        OnOperationCompleted(new OperationCompletedEventArgs(reportContent, false));
+    }
+    else
+    {
+        // Se o relatório não existir, dispara um evento de operação concluída com uma mensagem de erro
+        OnOperationCompleted(new OperationCompletedEventArgs("Relatório não encontrado.", true));
+    }
+}
 
     // Método para editar um relatório
     public void EditReport(string reportName, string userName, string product, decimal price, string comments)

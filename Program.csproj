@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="itext7" Version="8.0.4" />
+    <PackageReference Include="PdfiumViewer" Version="2.13.0" />
     <PackageReference Include="PDFsharp" Version="6.1.0" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
   </ItemGroup>

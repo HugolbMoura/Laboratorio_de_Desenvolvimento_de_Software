@@ -18,6 +18,9 @@ public interface IModel
 
     // Método para excluir um relatório pelo nome.
     void DeleteReport(string reportName);
+
+    // Método para visualizar um relatório específico
+    void ViewReport(string reportName);
     
 }
 
@@ -38,6 +41,8 @@ public interface IView
 
     // Método para solicitar uma entrada de valor decimal do usuário.
     decimal RequestDecimalInput(string prompt);
+
+    string RequestReportName();
 }
 
 // Definimos a interface IController que será usada para implementar o controlador no padrão MVC.
@@ -63,6 +68,8 @@ public interface IController
 
     // Método para excluir um relatório pelo nome.
     void DeleteReport(string reportName);
+
+    void ViewReports();
 }
 
 // Delegado que define a assinatura do evento de operação concluída.

@@ -83,4 +83,18 @@ public class Controller : IController
             _view.ShowMessage(e.Message);
         }
     }
+
+   public void ViewReports()
+{
+    // Chama a função para buscar e mostrar os relatórios existentes
+    _model.SearchSalesData();
+
+    // Solicita ao usuário que insira o nome do relatório que deseja visualizar
+    string reportName = _view.RequestReportName();
+
+    // Chama o método para visualizar o relatório específico
+    _model.ViewReport(reportName);
+}
+
+
 }

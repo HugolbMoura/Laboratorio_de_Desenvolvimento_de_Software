@@ -67,4 +67,9 @@ public class View : IView
         // Retorna o valor decimal válido inserido pelo usuário
         return value;
     }
+
+    public string RequestReportName()
+{
+    return RequestStringInput("Insira o nome do relatório que deseja visualizar:");
+}
 }
