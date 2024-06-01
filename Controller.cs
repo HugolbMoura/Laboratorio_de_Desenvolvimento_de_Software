@@ -84,17 +84,25 @@ public class Controller : IController
         }
     }
 
-   public void ViewReports()
+// Atualiza o método ViewReports na classe Controller
+public void ViewReports()
 {
-    // Chama a função para buscar e mostrar os relatórios existentes
-    _model.SearchSalesData();
-
-    // Solicita ao usuário que insira o nome do relatório que deseja visualizar
-    string reportName = _view.RequestReportName();
-
-    // Chama o método para visualizar o relatório específico
-    _model.ViewReport(reportName);
+    // Obtém a lista de relatórios existentes do modelo
+    string[] reportList = _model.GetReportList();
+    
+    // Solicita ao usuário que selecione um relatório da lista
+    string selectedReport = _view.RequestReportSelection(reportList);
+    
+    // Se o usuário cancelar a operação, retorna sem fazer nada
+    if (selectedReport == null)
+    {
+        return;
+    }
+    
+    // Solicita ao modelo para visualizar o relatório selecionado
+    _model.ViewReport(selectedReport);
 }
+
 
 
 }

@@ -47,15 +47,24 @@ public class Model : IModel
     }
 }
 
+// Atualiza o método ViewReports na classe Controller
+// Atualiza o método ViewReport na classe Model
 public void ViewReport(string reportName)
 {
     // Verifica se o relatório existe
-    string filePath = "reports/" + reportName + ".pdf";
+    string filePath = $"reports/{reportName}.pdf";
     if (File.Exists(filePath))
     {
-        // Lê e exibe o conteúdo do relatório
-        string reportContent = File.ReadAllText(filePath);
-        OnOperationCompleted(new OperationCompletedEventArgs(reportContent, false));
+        // Lê e formata os dados do relatório
+        string[] reportLines = File.ReadAllLines(filePath);
+        StringBuilder formattedReport = new StringBuilder();
+        foreach (string line in reportLines)
+        {
+            formattedReport.AppendLine(line);
+        }
+
+        // Dispara um evento de operação concluída com os dados do relatório formatados
+        OnOperationCompleted(new OperationCompletedEventArgs(formattedReport.ToString(), false));
     }
     else
     {
@@ -63,6 +72,7 @@ public void ViewReport(string reportName)
         OnOperationCompleted(new OperationCompletedEventArgs("Relatório não encontrado.", true));
     }
 }
+
 
     // Método para editar um relatório
     public void EditReport(string reportName, string userName, string product, decimal price, string comments)
@@ -185,5 +195,13 @@ public void ViewReport(string reportName)
     protected virtual void OnPdfGenerationRequested(PdfGenerationEventArgs e)
     {
         PdfGenerationRequested?.Invoke(this, e);
+    }
+
+     public string[] GetReportList()
+    {
+        // Lista todos os arquivos PDF na pasta "reports"
+        return Directory.GetFiles("reports", "*.pdf")
+                        .Select(Path.GetFileNameWithoutExtension)
+                        .ToArray();
     }
 }

@@ -21,6 +21,9 @@ public interface IModel
 
     // Método para visualizar um relatório específico
     void ViewReport(string reportName);
+
+    // Método para obter uma lista de relatórios existentes
+    string[] GetReportList();
     
 }
 
@@ -43,6 +46,9 @@ public interface IView
     decimal RequestDecimalInput(string prompt);
 
     string RequestReportName();
+
+    // Método para solicitar ao usuário o nome do relatório que deseja visualizar
+    string RequestReportSelection(string[] reportList);
 }
 
 // Definimos a interface IController que será usada para implementar o controlador no padrão MVC.

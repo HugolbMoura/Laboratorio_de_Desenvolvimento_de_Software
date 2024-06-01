@@ -69,7 +69,30 @@ public class View : IView
     }
 
     public string RequestReportName()
-{
-    return RequestStringInput("Insira o nome do relatório que deseja visualizar:");
-}
+    {
+        return RequestStringInput("Insira o nome do relatório que deseja visualizar:");
+    }
+
+     // Método para solicitar ao usuário o nome do relatório que deseja visualizar
+    public string RequestReportSelection(string[] reportList)
+    {
+        Console.WriteLine("Relatórios disponíveis:");
+        for (int i = 0; i < reportList.Length; i++)
+        {
+            Console.WriteLine($"{i + 1}. {reportList[i]}");
+        }
+        int selectionIndex;
+        do
+        {
+            Console.Write("Escolha o número do relatório que deseja visualizar (ou 0 para cancelar): ");
+        } while (!int.TryParse(Console.ReadLine(), out selectionIndex) || selectionIndex < 0 || selectionIndex > reportList.Length);
+        
+        if (selectionIndex == 0)
+        {
+            return null;
+        }
+        return reportList[selectionIndex - 1];
+    }
+
+    
 }
