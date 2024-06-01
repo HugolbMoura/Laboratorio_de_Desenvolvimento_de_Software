@@ -1,12 +1,12 @@
+// Controller.cs
 using System;
-using System.IO;
 
 public class Controller : IController
 {
     private readonly IModel _model;
     private readonly IView _view;
 
-    public event EventHandler? GeneratePdfRequested = delegate { };
+   public event EventHandler? GeneratePdfRequested  = delegate { };
 
     public Controller(IModel model, IView view)
     {
@@ -15,8 +15,17 @@ public class Controller : IController
         _model.OperationCompleted += ModelOperationCompleted;
     }
 
-    public void InsertSalesData()
+     public void InsertSalesData()
     {
+        // Para edição de relatório, coletamos informações como no CreateReport
+        string reportName = _view.RequestStringInput("Insira o nome do relatório a editar:");
+        string userName = _view.RequestStringInput("Insira o novo nome do vendedor:");
+        string product = _view.RequestStringInput("Insira o novo produto:");
+        DateTime date = _view.RequestDateInput("Insira a nova data:");
+        decimal price = _view.RequestDecimalInput("Insira o novo preço:");
+        string comments = _view.RequestStringInput("Insira o novo comentário:");
+
+        _model.EditReport(reportName, userName, product, date, price, comments);
     }
 
     public void SearchSalesData()
@@ -24,39 +33,20 @@ public class Controller : IController
         _model.SearchSalesData();
     }
 
-    public void SearchSalesDataByName(string reportName)
+    public void DeleteReport()
     {
-        _model.SearchSalesDataByName(reportName);
-    }
-
-    public void SearchSalesDataByDateRange(DateTime startDate, DateTime endDate)
-    {
-        _model.SearchSalesDataByDateRange(startDate, endDate);
-    }
-
-    public void DeleteReport(string reportName)
-    {
+        string reportName = _view.RequestStringInput("Insira o nome do relatório a eliminar:");
         _model.DeleteReport(reportName);
     }
 
     public void InsertSalesComment()
     {
+        //_model.StoreSalesComment();
     }
 
     public void RequestPdfGeneration(string reportName, string userName, string product, DateTime date, decimal price, string comments)
     {
         _model.GeneratePdf(reportName, userName, product, date, price, comments);
-    }
-
-    public bool ReportExists(string reportName)
-    {
-        string filePath = "reports/" + reportName + ".pdf";
-        return File.Exists(filePath);
-    }
-
-    public void EditReport(string reportName, string userName, string product, DateTime date, decimal price, string comments)
-    {
-        _model.EditReport(reportName, userName, product, date, price, comments);
     }
 
     private void ModelOperationCompleted(object sender, OperationCompletedEventArgs e)
@@ -70,4 +60,5 @@ public class Controller : IController
             _view.ShowMessage(e.Message);
         }
     }
+
 }

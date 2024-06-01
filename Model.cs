@@ -1,84 +1,42 @@
+// Model.cs
 using PdfSharp.Pdf;
 using PdfSharp.Drawing;
 using PdfSharp.Drawing.Layout;
+using PdfSharp.Pdf.IO;
 using System;
 using System.Diagnostics;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 public class Model : IModel
 {
     public event OperationCompletedEventHandler OperationCompleted;
     public event EventHandler<PdfGenerationEventArgs>? PdfGenerationRequested;
 
-    public Model()
+     public Model()
     {
         OperationCompleted += delegate { };
     }
-
-    public void SearchSalesData()
+    
+      public void SearchSalesData()
     {
+        // Lista todos os relatórios na pasta "reports"
         var reports = Directory.GetFiles("reports", "*.pdf");
-        foreach (var report in reports)
+        if (reports.Length == 0)
         {
-            Console.WriteLine(Path.GetFileNameWithoutExtension(report));
-        }
-    }
-
-    public void SearchSalesDataByName(string reportName)
-    {
-        string filePath = "reports/" + reportName + ".pdf";
-        if (File.Exists(filePath))
-        {
-            Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
+            OnOperationCompleted(new OperationCompletedEventArgs("Nenhum relatório encontrado.", false));
         }
         else
         {
-            OperationCompleted(this, new OperationCompletedEventArgs("Relatório não encontrado.", true));
-        }
-    }
-
-    public void SearchSalesDataByDateRange(DateTime startDate, DateTime endDate)
-    {
-        var reports = Directory.GetFiles("reports", "*.pdf");
-        foreach (var report in reports)
-        {
-            FileInfo fileInfo = new FileInfo(report);
-            if (fileInfo.CreationTime >= startDate && fileInfo.CreationTime <= endDate)
+            var message = "Relatórios encontrados:\n";
+            foreach (var report in reports)
             {
-                Console.WriteLine(Path.GetFileNameWithoutExtension(report));
+                message += Path.GetFileName(report) + "\n";
             }
+            OnOperationCompleted(new OperationCompletedEventArgs(message, false));
         }
-    }
-
-    public void GeneratePdf(string reportName, string userName, string product, DateTime date, decimal price, string comments)
-    {
-        string directoryPath = "reports";
-        if (!Directory.Exists(directoryPath))
-        {
-            Directory.CreateDirectory(directoryPath);
-        }
-
-        string filePath = Path.Combine(directoryPath, reportName + ".pdf");
-
-        using (PdfDocument document = new PdfDocument())
-        {
-            PdfPage page = document.AddPage();
-            XGraphics gfx = XGraphics.FromPdfPage(page);
-            XFont font = new XFont("Arial", 12);
-            XTextFormatter tf = new XTextFormatter(gfx);
-
-            tf.DrawString("Nome do Relatório: " + reportName, font, XBrushes.Black, new XRect(40, 50, page.Width - 80, 20));
-            tf.DrawString("Nome do Vendedor: " + userName, font, XBrushes.Black, new XRect(40, 80, page.Width - 80, 20));
-            tf.DrawString("Produto: " + product, font, XBrushes.Black, new XRect(40, 110, page.Width - 80, 20));
-            tf.DrawString("Data: " + DateTime.Now.ToString("dd/MM/yyyy"), font, XBrushes.Black, new XRect(40, 140, page.Width - 80, 20));
-            tf.DrawString("Preço: " + price.ToString("C"), font, XBrushes.Black, new XRect(40, 170, page.Width - 80, 20));
-            tf.DrawString("Comentário: " + comments, font, XBrushes.Black, new XRect(40, 200, page.Width - 80, 20));
-
-            document.Save(filePath);
-        }
-
-        OperationCompleted(this, new OperationCompletedEventArgs("PDF gerado com sucesso.", false));
     }
 
     public void EditReport(string reportName, string userName, string product, DateTime date, decimal price, string comments)
@@ -86,12 +44,12 @@ public class Model : IModel
         string filePath = "reports/" + reportName + ".pdf";
         if (File.Exists(filePath))
         {
-            File.Delete(filePath);
             GeneratePdf(reportName, userName, product, date, price, comments);
+            OnOperationCompleted(new OperationCompletedEventArgs("Relatório editado com sucesso.", false));
         }
         else
         {
-            OperationCompleted(this, new OperationCompletedEventArgs("Relatório não encontrado.", true));
+            OnOperationCompleted(new OperationCompletedEventArgs("Relatório não encontrado.", true));
         }
     }
 
@@ -101,31 +59,111 @@ public class Model : IModel
         if (File.Exists(filePath))
         {
             File.Delete(filePath);
-            OperationCompleted(this, new OperationCompletedEventArgs("Relatório deletado com sucesso.", false));
+            OnOperationCompleted(new OperationCompletedEventArgs("Relatório eliminado com sucesso.", false));
         }
         else
         {
-            OperationCompleted(this, new OperationCompletedEventArgs("Relatório não encontrado.", true));
+            OnOperationCompleted(new OperationCompletedEventArgs("Relatório não encontrado.", true));
         }
     }
-}
 
-public class PdfGenerationEventArgs : EventArgs
-{
-    public string ReportName { get; }
-    public string UserName { get; }
-    public string Product { get; }
-    public DateTime Date { get; }
-    public decimal Price { get; }
-    public string Comments { get; }
 
-    public PdfGenerationEventArgs(string reportName, string userName, string product, DateTime date, decimal price, string comments)
+    public void StoreSalesComment()
     {
-        ReportName = reportName;
-        UserName = userName;
-        Product = product;
-        Date = date;
-        Price = price;
-        Comments = comments;
+        // Simulação de armazenamento de comentários de vendas
+        OnOperationCompleted(new OperationCompletedEventArgs("Comentário de vendas armazenado com sucesso.", false));
+    }
+
+    public void GeneratePdf(string reportName, string userName, string product, DateTime date, decimal price, string comments)
+    {
+        try
+        {
+             string filePath = "reports/" + reportName + ".pdf";
+             if (File.Exists(filePath))
+             {
+               OnOperationCompleted(new OperationCompletedEventArgs("Já existe um relatório com este nome.", true));
+               return; // Retorna imediatamente se o relatório já existir
+             }     
+                using (var doc = new PdfSharp.Pdf.PdfDocument())
+                {
+                    var page = doc.AddPage();
+                    var graphics = PdfSharp.Drawing.XGraphics.FromPdfPage(page);
+                    var textFormatter = new PdfSharp.Drawing.Layout.XTextFormatter(graphics);
+
+                    // Adicionar logo
+                    graphics.DrawImage(PdfSharp.Drawing.XImage.FromFile("logo.png"), 7, 1, 77, 77);
+
+                    // Adicionar texto logo
+                    var logoFont = new XFont("Arial", 10);
+                    textFormatter.Alignment = XParagraphAlignment.Left;
+                    textFormatter.DrawString($"CodeConquers", logoFont, XBrushes.MediumSlateBlue, new XRect(12, 2, page.Width, page.Height));
+                    // Adicionar cabeçalho
+                    var headFont = new XFont("Arial", 14);
+                    textFormatter.Alignment = XParagraphAlignment.Center;
+                    textFormatter.DrawString("Relatório de Vendas", headFont, PdfSharp.Drawing.XBrushes.MediumSlateBlue, new PdfSharp.Drawing.XRect(0, 7, page.Width, page.Height));
+
+                    //centralizar texto
+                    textFormatter.Alignment = PdfSharp.Drawing.Layout.XParagraphAlignment.Center;
+
+
+                    // Adicionar retângulo com o nome do relatório
+                    var rect = new XRect(0, 50, page.Width, 30);
+                    graphics.DrawRectangle(XBrushes.LightBlue, rect);
+
+                    var font = new XFont("Arial", 22);
+                    textFormatter.Alignment = XParagraphAlignment.Center;
+                    textFormatter.DrawString(reportName, font, XBrushes.Green, rect);
+
+                    // Adicionar dados do relatório
+                    var dataFont = new XFont("Arial", 12);
+                    var yPosition = 90;
+                    textFormatter.Alignment = XParagraphAlignment.Left;
+
+                    textFormatter.DrawString($"Nome do Vendedor: {userName}", dataFont, XBrushes.Black, new XRect(20, yPosition, page.Width - 40, page.Height));
+                    yPosition += 30;
+                    textFormatter.DrawString($"Produto: {product}", dataFont, XBrushes.Black, new XRect(20, yPosition, page.Width - 40, page.Height));
+                    yPosition += 30;
+                    textFormatter.DrawString($"Data: {date.ToShortDateString()}", dataFont, XBrushes.Black, new XRect(20, yPosition, page.Width - 40, page.Height));
+                    yPosition += 30;
+                    textFormatter.DrawString($"Preço: {price:C}", dataFont, XBrushes.Black, new XRect(20, yPosition, page.Width - 40, page.Height));
+                    yPosition += 30;
+                    textFormatter.DrawString($"Comentário: {comments}", dataFont, XBrushes.Black, new XRect(20, yPosition, page.Width - 40, page.Height));
+                    yPosition += 80;
+
+                    // Adicionar retângulo para footer
+                    var rectFooter = new XRect(0, 250, page.Width, 30);
+                    graphics.DrawRectangle(XBrushes.LightBlue, rectFooter);
+                    yPosition += 4;
+                    var fontFooter = new XFont("Arial", 12);
+                    textFormatter.Alignment = XParagraphAlignment.Center;
+                    textFormatter.DrawString("CodeConquers Sales Report", fontFooter, XBrushes.Green, rectFooter);
+
+                    // Salvar PDF
+                    string fileName = "reports/" + reportName + ".pdf";
+
+                    doc.Save(fileName);
+
+                    // Abrir PDF
+                    Process.Start(new ProcessStartInfo(fileName) { UseShellExecute = true });
+
+                    OnOperationCompleted(new OperationCompletedEventArgs("PDF gerado com sucesso.", false));
+                }
+            
+            
+        }
+        catch (Exception ex)
+        {
+            OnOperationCompleted(new OperationCompletedEventArgs("Erro ao gerar PDF: " + ex.Message, true));
+        }
+    }
+
+    protected virtual void OnOperationCompleted(OperationCompletedEventArgs e)
+    {
+        OperationCompleted?.Invoke(this, e);
+    }
+
+    protected virtual void OnPdfGenerationRequested(PdfGenerationEventArgs e)
+    {
+        PdfGenerationRequested?.Invoke(this, e);
     }
 }

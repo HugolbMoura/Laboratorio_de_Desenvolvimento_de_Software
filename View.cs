@@ -17,20 +17,16 @@ public class View : IView
         Console.WriteLine("Erro: " + message);
     }
 
-    public string RequestStringInput(string prompt)
+  public string RequestStringInput(string prompt)
+{
+    Console.WriteLine(prompt);
+    string? input = Console.ReadLine();
+    if (input == null)
     {
-        Console.WriteLine(prompt);
-        string? input = Console.ReadLine();
-        if (input == null)
-        {
-            throw new InvalidOperationException("A entrada não pode ser nula.");
-        }
-        if (input == "0")
-        {
-            Environment.Exit(0);
-        }
-        return input;
+        throw new InvalidOperationException("A entrada não pode ser nula.");
     }
+    return input;
+}
 
     public DateTime RequestDateInput(string prompt)
     {
