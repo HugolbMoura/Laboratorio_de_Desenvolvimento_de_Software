@@ -47,31 +47,35 @@ public class Model : IModel
     }
 }
 
-// Atualiza o método ViewReports na classe Controller
-// Atualiza o método ViewReport na classe Model
+
 public void ViewReport(string reportName)
 {
     // Verifica se o relatório existe
-    string filePath = $"reports/{reportName}.pdf";
+    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "reports", $"{reportName}.pdf");
     if (File.Exists(filePath))
     {
-        // Lê e formata os dados do relatório
-        string[] reportLines = File.ReadAllLines(filePath);
-        StringBuilder formattedReport = new StringBuilder();
-        foreach (string line in reportLines)
+        try
         {
-            formattedReport.AppendLine(line);
+            var processInfo = new ProcessStartInfo
+            {
+                FileName = filePath,
+                UseShellExecute = true // Especifica que o shell do sistema deve ser usado para abrir o arquivo
+            };
+            Process.Start(processInfo);
         }
-
-        // Dispara um evento de operação concluída com os dados do relatório formatados
-        OnOperationCompleted(new OperationCompletedEventArgs(formattedReport.ToString(), false));
+        catch (Exception ex)
+        {
+            // Se ocorrer um erro ao tentar abrir o PDF, dispara um evento de operação concluída com a mensagem de erro
+            OnOperationCompleted(new OperationCompletedEventArgs("Erro ao abrir o relatório: " + ex.Message, true));
+        }
     }
     else
     {
         // Se o relatório não existir, dispara um evento de operação concluída com uma mensagem de erro
-        OnOperationCompleted(new OperationCompletedEventArgs("Relatório não encontrado.", true));
+        OnOperationCompleted(new OperationCompletedEventArgs("Relatório não encontrado: " + filePath, true));
     }
 }
+
 
 
     // Método para editar um relatório
