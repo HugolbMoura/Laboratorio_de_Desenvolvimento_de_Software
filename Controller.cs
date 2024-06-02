@@ -87,21 +87,70 @@ public class Controller : IController
 // Atualiza o método ViewReports na classe Controller
 public void ViewReports()
 {
-    // Obtém a lista de relatórios existentes do modelo
-    string[] reportList = _model.GetReportList();
-    
-    // Solicita ao usuário que selecione um relatório da lista
-    string selectedReport = _view.RequestReportSelection(reportList);
-    
-    // Se o usuário cancelar a operação, retorna sem fazer nada
-    if (selectedReport == null)
+    // Chama a função para buscar e mostrar os relatórios existentes
+    _model.SearchSalesData();
+
+    // Solicita ao usuário que escolha uma opção: visualizar um relatório específico ou listar relatórios entre duas datas
+    string option = _view.RequestStringInput("Escolha uma opção:\n1. Visualizar relatório\n2. Listar relatórios entre duas datas");
+
+    switch (option)
     {
-        return;
+        case "1":
+            // Visualizar relatório específico
+            ViewSpecificReport();
+            break;
+        case "2":
+            // Listar relatórios entre duas datas
+            ListReportsBetweenDates();
+            break;
+        default:
+            _view.ShowError("Opção inválida. Tente novamente.");
+            break;
     }
-    
-    // Solicita ao modelo para visualizar o relatório selecionado
-    _model.ViewReport(selectedReport);
 }
+
+private void ViewSpecificReport()
+{
+    // Solicita ao usuário que insira o nome do relatório que deseja visualizar
+    string reportName = _view.RequestReportName();
+
+    // Chama o método para visualizar o relatório específico
+    _model.ViewReport(reportName);
+}
+
+private void ListReportsBetweenDates()
+{
+    // Solicita duas datas ao usuário
+    string[] dates = _view.RequestDateRange();
+
+    // Converte as datas para DateTime
+    DateTime startDate, endDate;
+    if (DateTime.TryParse(dates[0], out startDate) && DateTime.TryParse(dates[1], out endDate))
+    {
+        // Obtém os relatórios entre as datas fornecidas
+        var reports = _model.GetReportsBetweenDates(startDate, endDate);
+        
+        // Verifica se foram encontrados relatórios
+        if (reports.Any())
+        {
+            // Mostra os relatórios encontrados
+            _view.ShowMessage("Relatórios entre " + startDate.ToShortDateString() + " e " + endDate.ToShortDateString() + ":");
+            foreach (var report in reports)
+            {
+                _view.ShowMessage(report);
+            }
+        }
+        else
+        {
+            _view.ShowMessage("Nenhum relatório encontrado entre as datas fornecidas.");
+        }
+    }
+    else
+    {
+        _view.ShowError("Formato de data inválido. Certifique-se de inserir datas no formato correto (dd/mm/yyyy).");
+    }
+}
+
 
 
 

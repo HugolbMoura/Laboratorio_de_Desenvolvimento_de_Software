@@ -70,5 +70,3 @@ C:\Users\WRT\Documents\GitHub\Laboratorio_de_Desenvolvimento_de_Software\bin\Deb
 C:\Users\WRT\Documents\GitHub\Laboratorio_de_Desenvolvimento_de_Software\bin\Debug\net8.0\Microsoft.DotNet.PlatformAbstractions.dll
 C:\Users\WRT\Documents\GitHub\Laboratorio_de_Desenvolvimento_de_Software\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
 C:\Users\WRT\Documents\GitHub\Laboratorio_de_Desenvolvimento_de_Software\bin\Debug\net8.0\Newtonsoft.Json.dll
-C:\Users\WRT\Documents\GitHub\Laboratorio_de_Desenvolvimento_de_Software\bin\Debug\net8.0\PdfiumViewer.dll
-C:\Users\WRT\Documents\GitHub\Laboratorio_de_Desenvolvimento_de_Software\bin\Debug\net8.0\nl\PdfiumViewer.resources.dll
