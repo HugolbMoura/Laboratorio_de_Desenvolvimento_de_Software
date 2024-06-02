@@ -1,9 +1,11 @@
+using PdfSharp.Pdf;
+
 // Definimos a interface IModel que será usada para implementar o modelo no padrão MVC.
 public interface IModel
 {
     // Evento que será disparado quando uma operação for concluída.
     event OperationCompletedEventHandler OperationCompleted;
-    
+
     // Evento que será disparado quando for solicitada a geração de um PDF.
     event EventHandler<PdfGenerationEventArgs> PdfGenerationRequested;
 
@@ -27,7 +29,7 @@ public interface IModel
 
     string[] GetReportsBetweenDates(DateTime startDate, DateTime endDate);
     bool IsFileCreatedBetweenDates(string filePath, DateTime startDate, DateTime endDate);
-    
+
 }
 
 // Definimos a interface IView que será usada para implementar a visualização no padrão MVC.
@@ -53,7 +55,7 @@ public interface IView
     // Método para solicitar ao usuário o nome do relatório que deseja visualizar
     string RequestReportSelection(string[] reportList);
 
-     // Método para solicitar duas datas do usuário e retornar como um array de strings
+    // Método para solicitar duas datas do usuário e retornar como um array de strings
     string[] RequestDateRange();
 }
 
@@ -73,7 +75,7 @@ public interface IController
     void RequestPdfGeneration(string reportName, string userName, string product, decimal price, string comments);
 
     // Método para verificar se um relatório existe pelo nome.
-    bool ReportExists(string reportName); 
+    bool ReportExists(string reportName);
 
     // Método para editar um relatório existente com novos dados.
     void EditReport(string reportName, string userName, string product, decimal price, string comments);
@@ -83,6 +85,14 @@ public interface IController
 
     void ViewReports();
 }
+
+
+public interface PDFGenerator
+{
+    byte[] GeneratePdf(List<Sale> salesData, List<SaleComment> salesComments);
+}
+
+
 
 // Delegado que define a assinatura do evento de operação concluída.
 public delegate void OperationCompletedEventHandler(object sender, OperationCompletedEventArgs e);
