@@ -3,7 +3,6 @@ using PdfSharp.Pdf; // Importa a biblioteca PdfSharp para trabalhar com PDFs
 using PdfSharp.Drawing;
 using PdfSharp.Drawing.Layout;
 using PdfSharp.Pdf.IO;
-using PdfiumViewer;
 using System;
 using System.Diagnostics;
 using System.Collections.Generic;
@@ -27,7 +26,7 @@ public class Model : IModel
 
     // Método para buscar dados de vendas
    public void SearchSalesData()
-{
+  {
     // Lista todos os arquivos PDF na pasta "reports"
     var reports = Directory.GetFiles("reports", "*.pdf");
     if (reports.Length == 0)
@@ -208,4 +207,24 @@ public void ViewReport(string reportName)
                         .Select(Path.GetFileNameWithoutExtension)
                         .ToArray();
     }
+
+
+
+    public string[] GetReportsBetweenDates(DateTime startDate, DateTime endDate)
+{
+    // Lista todos os arquivos PDF na pasta "reports" entre as datas fornecidas
+    return Directory.GetFiles("reports", "*.pdf")
+                    .Where(file => IsFileCreatedBetweenDates(file, startDate, endDate))
+                    .Select(Path.GetFileNameWithoutExtension)
+                    .ToArray();
+}
+
+public bool IsFileCreatedBetweenDates(string filePath, DateTime startDate, DateTime endDate)
+{
+    DateTime fileCreationDate = File.GetCreationTime(filePath);
+    return fileCreationDate >= startDate && fileCreationDate <= endDate;
+}
+
+
+
 }

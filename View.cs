@@ -94,5 +94,16 @@ public class View : IView
         return reportList[selectionIndex - 1];
     }
 
+
+
+    public string[] RequestDateRange()
+{
+    // Solicita as duas datas ao usuário
+    string startDate = RequestStringInput("Insira a data de início (dd/mm/yyyy):");
+    string endDate = RequestStringInput("Insira a data de fim (dd/mm/yyyy):");
+
+    return new string[] { startDate, endDate };
+}
+
     
 }

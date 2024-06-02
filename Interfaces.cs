@@ -24,6 +24,9 @@ public interface IModel
 
     // Método para obter uma lista de relatórios existentes
     string[] GetReportList();
+
+    string[] GetReportsBetweenDates(DateTime startDate, DateTime endDate);
+    bool IsFileCreatedBetweenDates(string filePath, DateTime startDate, DateTime endDate);
     
 }
 
@@ -49,6 +52,9 @@ public interface IView
 
     // Método para solicitar ao usuário o nome do relatório que deseja visualizar
     string RequestReportSelection(string[] reportList);
+
+     // Método para solicitar duas datas do usuário e retornar como um array de strings
+    string[] RequestDateRange();
 }
 
 // Definimos a interface IController que será usada para implementar o controlador no padrão MVC.

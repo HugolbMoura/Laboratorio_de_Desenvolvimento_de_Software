@@ -52,10 +52,6 @@
               "target": "Package",
               "version": "[6.1.0, )"
             },
-            "PdfiumViewer": {
-              "target": "Package",
-              "version": "[2.13.0, )"
-            },
             "System.Data.SQLite": {
               "target": "Package",
               "version": "[1.0.118, )"
